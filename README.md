@@ -29,13 +29,11 @@ void setup() {
 }
 
 void loop() {
-  // Comenzar proceso al presionar START
   if (digitalRead(start) == HIGH && !running) {
     running = true;
     iniciarProceso();
   }
   
-  // Detener proceso al presionar STOP
   if (digitalRead(stop) == HIGH && running) {
     detenerProceso();
     running = false;
@@ -43,7 +41,6 @@ void loop() {
 }
 
 void iniciarProceso() {
-  // Mover a la derecha hasta que llegue al sensor S1
   moverDerecha();
   while (digitalRead(s1) == LOW) {
     if (digitalRead(stop) == HIGH) {
@@ -53,10 +50,8 @@ void iniciarProceso() {
   }
   detenerMotor();
   
-  // Esperar 3 segundos
   delay(3000);
 
-  // Mover a la izquierda hasta el sensor S4
   moverIzquierda();
   while (digitalRead(s4) == LOW) {
     if (digitalRead(stop) == HIGH) {
@@ -65,8 +60,7 @@ void iniciarProceso() {
     }
   }
   detenerMotor();
-  
-  // Transportar entre S4 y S2 tres veces
+
   for (int i = 0; i < 3; i++) {
     moverDerecha();
     while (digitalRead(s2) == LOW) {
@@ -86,8 +80,8 @@ void iniciarProceso() {
     }
     detenerMotor();
   }
-  
-  // Mover a la derecha hasta el sensor S3
+
+
   moverDerecha();
   while (digitalRead(s3) == LOW) {
     if (digitalRead(stop) == HIGH) {
@@ -97,7 +91,6 @@ void iniciarProceso() {
   }
   detenerMotor();
   
-  // Detener el proceso
   detenerProceso();
   running = false;
 }
